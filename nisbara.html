@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nisbara the Capybot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #8FBC8F;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .chat-container {
+            background-color: #F0E68C;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #capybara-img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        #chat-box {
+            height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #FFFACD;
+        }
+        #user-input {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #556B2F;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #6B8E23;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <img id="capybara-img" src="nis.jpg" alt="Capybara">
+        <div id="chat-box"></div>
+        <input type="text" id="user-input" placeholder="Type your message here..." disabled>
+        <button id="start-btn">Start Conversation</button>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        const userInput = document.getElementById('user-input');
+        const startBtn = document.getElementById('start-btn');
+
+        function addMessage(sender, message) {
+            const messageElem = document.createElement('p');
+            messageElem.textContent = `${sender}: ${message}`;
+            chatBox.appendChild(messageElem);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function capybaraResponse(message) {
+            const responses = [
+
+                "Hey nisargini",
+                "R U a chipi cat",
+                "Chew chew! That's interesting!",
+                "Squeak! I love swimming. Do you?",
+                "Grunt! Tell me more about that!",
+                "Wheek wheek! Sounds exciting!",
+                "Purr... That's cool, bestie!",
+                "NISARGU PISARGUUUUU"
+            ];
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+
+        startBtn.addEventListener('click', () => {
+            if (startBtn.textContent === 'Start Conversation') {
+                addMessage('Nisbara', "Hi Nisarguu! I'm Nisbara, your capybot. What would you like to chat about?");
+                startBtn.textContent = 'Send';
+                userInput.disabled = false;
+                userInput.focus();
+            } else {
+                const userMessage = userInput.value.trim();
+                if (userMessage) {
+                    addMessage('You', userMessage);
+                    userInput.value = '';
+                    setTimeout(() => {
+                        const response = capybaraResponse(userMessage);
+                        addMessage('Nisbara', response);
+                    }, 1000);
+                }
+            }
+        });
+
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                startBtn.click();
+            }
+        });
+    </script>
+</body>
+</html>
